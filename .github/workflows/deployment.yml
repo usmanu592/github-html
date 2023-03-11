@@ -1,0 +1,17 @@
+name: html-design CI
+on:
+  push:
+    branches: [ "master" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3   ### continous Download
+    - name: ssh deploy            ### Continous deployment
+      uses: easingthemes/ssh-deploy@main
+      env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_LIVE }}
+          REMOTE_USER: ${{ secrets.USER }}
+          TARGET: ${{ secrets.REMOTE_PATH_LIVE }}
+   
